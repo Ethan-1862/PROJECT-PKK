@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran - ElectroHub</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .payment-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .payment-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin-bottom: 30px;
+        }
+
+        .payment-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .payment-header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .payment-status {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            font-size: 0.9rem;
+        }
+
+        .status-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-step.active .step-number {
+            background: #fff;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .step-number {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .payment-content {
+            padding: 40px;
+        }
+
+        .payment-method-details {
+            background: #f0f7ff;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            border-left: 4px solid #0066cc;
+        }
+
+        .payment-method-details h3 {
+            color: #0066cc;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        #qrCodeContainer {
+            transition: all 0.3s ease;
+        }
+
+        #qrCodeContainer img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .order-summary .payment-method {
+            margin-bottom: 0;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+        }
+
+        .order-summary .payment-method label {
+            gap: 8px;
+        }
+
+        .order-summary .payment-method i {
+            font-size: 1rem;
+        }
+
+        .bank-details {
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .bank-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95rem;
+        }
+
+        .bank-detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .bank-detail-row .label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .bank-detail-row .value {
+            color: #0066cc;
+            font-weight: bold;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background: #0066cc;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+            margin-top: 10px;
+        }
+
+        .copy-btn:hover {
+            background: #0052a3;
+        }
+
+        .order-summary {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .order-summary h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.2rem;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.95rem;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-top: 2px solid #0066cc;
+            margin-top: 10px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #0066cc;
+        }
+
+        .instructions {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin-bottom: 30px;
+        }
+
+        .instructions h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .instructions ol {
+            padding-left: 20px;
+            color: #856404;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+
+        .payment-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .confirm-btn {
+            flex: 1;
+            padding: 15px;
+            background: #22c55e;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .confirm-btn:hover {
+            background: #16a34a;
+        }
+
+        .cancel-btn {
+            flex: 1;
+            padding: 15px;
+            background: #999;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .cancel-btn:hover {
+            background: #777;
+        }
+
+        .success-message {
+            display: none;
+            background: #d4edda;
+            color: #155724;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .email-section {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .email-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .email-form input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.95rem;
+        }
+
+        .email-form button {
+            padding: 10px 20px;
+            background: #0066cc;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .email-form button:hover {
+            background: #0052a3;
+        }
+
+        @media (max-width: 768px) {
+            .payment-content {
+                padding: 20px;
+            }
+
+            .payment-status {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .payment-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER / NAVBAR -->
+    <header class="navbar">
+        <div class="logo"><i class="fas fa-plug"></i> ElectroHub</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Cari produk...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="home.html#products">Produk</a></li>
+                <li><a href="home.html#about">Tentang</a></li>
+                <li><a href="home.html#contact">Kontak</a></li>
+            </ul>
+        </nav>
+        <div class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cartCount" class="cart-count">0</span>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <div class="payment-container">
+        <!-- STATUS -->
+        <div class="payment-card">
+            <div class="payment-header">
+                <h1>Konfirmasi Pembayaran</h1>
+                <div class="payment-status">
+                    <div class="status-step active">
+                        <div class="step-number">✓</div>
+                        <span>Keranjang</span>
+                    </div>
+                    <div class="status-step active">
+                        <div class="step-number">✓</div>
+                        <span>Review</span>
+                    </div>
+                    <div class="status-step active">
+                        <div class="step-number">3</div>
+                        <span>Pembayaran</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="payment-content">
+                <!-- RINGKASAN PESANAN -->
+                <div class="order-summary" id="orderSummary">
+                    <h3>Ringkasan Pesanan Anda</h3>
+                    <!-- Items akan dimuat di sini -->
+                </div>
+
+                <!-- PILIHAN METODE PEMBAYARAN -->
+                <div class="order-summary">
+                    <h3>Ubah Metode Pembayaran</h3>
+                    <div class="payment-method">
+                        <input type="radio" id="pm-qris" name="paymentMethod" value="qris" checked onchange="changePaymentMethod('qris')">
+                        <label for="pm-qris"><i class="fas fa-qrcode"></i> QRIS (Barcode Pembayaran Nasional)</label>
+                    </div>
+                    <div class="payment-method">
+                        <input type="radio" id="pm-cod" name="paymentMethod" value="cod" onchange="changePaymentMethod('cod')">
+                        <label for="pm-cod"><i class="fas fa-truck"></i> COD (Bayar di Tempat)</label>
+                    </div>
+                </div>
+
+                <!-- METODE PEMBAYARAN -->
+                <div class="payment-method-details" id="paymentMethodInfo">
+                    <!-- Detail pembayaran akan dimuat di sini -->
+                </div>
+
+                <!-- EMAIL -->
+                <!-- IDENTITAS COD (akan muncul jika pilih COD) -->
+                <div class="order-summary" id="codIdentitySection" style="display: none;">
+                    <h3>Identitas untuk COD</h3>
+                    <p style="margin-bottom:8px;">Mohon isi identitas penerima untuk pengiriman dan verifikasi kurir.</p>
+                    <div style="display:flex; flex-direction:column; gap:8px;">
+                        <input type="text" id="codName" placeholder="Nama lengkap penerima">
+                        <input type="tel" id="codPhone" placeholder="Nomor telepon penerima">
+                        <textarea id="codAddress" rows="3" placeholder="Alamat lengkap (jalan, RT/RW, kecamatan, kota, kode pos)"></textarea>
+                    </div>
+                </div>
+
+                <div class="email-section">
+                    <h4>Konfirmasi Email</h4>
+                    <p style="margin-bottom: 10px;">Masukkan email untuk menerima konfirmasi pembayaran</p>
+                    <div class="email-form">
+                        <input type="email" id="emailInput" placeholder="nama@email.com">
+                        <button onclick="sendConfirmation()">Kirim</button>
+                    </div>
+                </div>
+
+                <!-- INSTRUKSI PEMBAYARAN -->
+                <div class="instructions">
+                    <h4>📋 Instruksi Pembayaran</h4>
+                    <ol>
+                        <li><strong>Salin nomor rekening/akun</strong> yang tertera di atas</li>
+                        <li><strong>Lakukan transfer</strong> sesuai dengan metode pembayaran yang dipilih</li>
+                        <li><strong>Cantumkan kode referensi</strong> pembayaran Anda</li>
+                        <li><strong>Tunggu konfirmasi</strong> - Pesanan akan diproses dalam 1x24 jam</li>
+                    </ol>
+                </div>
+
+                <!-- SUCCESS MESSAGE -->
+                <div class="success-message" id="successMessage">
+                    <div class="success-icon">✓</div>
+                    <h3>Pembayaran Berhasil!</h3>
+                    <p>Terima kasih telah berbelanja. Pesanan Anda sedang diproses.</p>
+                </div>
+
+                <!-- ACTIONS -->
+                <div class="payment-actions">
+                    <button class="confirm-btn" onclick="confirmPayment()">Saya Telah Melakukan Transfer</button>
+                    <a href="cart.html" class="cancel-btn">← Kembali ke Keranjang</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Tentang ElectroHub</h4>
+                <ul>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Karir</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Layanan</h4>
+                <ul>
+                    <li><a href="#">Pengiriman</a></li>
+                    <li><a href="#">Pengembalian</a></li>
+                    <li><a href="#">Garansi</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Ikuti Kami</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ElectroHub. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="payment.js"></script>
+</body>
+</html>

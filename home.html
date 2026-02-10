@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroHub - Toko Elektronik Terpercaya</title>
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+    <!-- HEADER / NAVBAR -->
+    <header class="navbar">
+        <div class="logo"><i class="fas fa-plug"></i> ElectroHub</div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Cari produk...">
+            <button id="searchBtn"><i class="fas fa-search"></i></button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#products">Produk</a></li>
+                <li><a href="#about">Tentang</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+        </nav>
+        <div class="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span id="cartCount" class="cart-count">0</span>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero">
+        <video id="heroVideo" autoplay muted loop playsinline preload="metadata" src="satoru-gojo-six-eyes-jujutsu-kaisen-moewalls-com.mp4"></video>
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <canvas id="heroCanvas"></canvas>
+        <button id="heroToggle" class="hero-toggle" aria-label="Pause background video"><i class="fas fa-pause"></i></button>
+        <div class="hero-content">
+            <h1>Elektronik Berkualitas Tinggi</h1>
+            <p>Produk terlengkap dengan harga terbaik dan garansi resmi</p>
+            <button class="btn-primary">Belanja Sekarang</button>
+        </div>
+        <div class="scroll-down"><span></span></div>
+    </section>
+
+    <!-- KATEGORI -->
+    <section class="categories">
+        <h2>Kategori Produk</h2>
+        <div class="category-list">
+            <div class="category-item" data-category="all">
+                <i class="fas fa-th"></i>
+                <p>Semua</p>
+            </div>
+            <div class="category-item" data-category="stoplamp">
+                <i class="fas fa-lightbulb"></i>
+                <p>Stoplamp</p>
+            </div>
+            <div class="category-item" data-category="running">
+                <i class="fas fa-bolt"></i>
+                <p>Lampu Running</p>
+            </div>
+            <div class="category-item" data-category="alis">
+                <i class="fas fa-eye"></i>
+                <p>Lampu Alis</p>
+            </div>
+            <div class="category-item" data-category="relay">
+                <i class="fas fa-wrench"></i>
+                <p>Relay & Bracket</p>
+            </div>
+            <div class="category-item" data-category="accessories">
+                <i class="fas fa-plug"></i>
+                <p>Aksesoris</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUK -->
+    <section id="products" class="products">
+        <h2>Produk Terbaru</h2>
+        <div class="product-grid" id="productGrid">
+            <!-- Produk akan ditampilkan di sini oleh JavaScript -->
+        </div>
+    </section>
+
+    <!-- TENTANG -->
+    <section id="about" class="about">
+        <h2>Mengapa Pilih Kami?</h2>
+        <div class="about-grid">
+            <div class="about-item">
+                <i class="fas fa-check-circle"></i>
+                <h3>Produk Asli</h3>
+                <p>Semua produk original dengan sertifikat keaslian</p>
+            </div>
+            <div class="about-item">
+                <i class="fas fa-shipping-fast"></i>
+                <h3>Pengiriman Cepat</h3>
+                <p>Pengiriman gratis untuk pembelian minimal Rp 500.000</p>
+            </div>
+            <div class="about-item">
+                <i class="fas fa-shield-alt"></i>
+                <h3>Garansi Terjamin</h3>
+                <p>Garansi resmi dan layanan purna jual terbaik</p>
+            </div>
+            <div class="about-item">
+                <i class="fas fa-headset"></i>
+                <h3>Dukungan 24/7</h3>
+                <p>Tim customer service kami siap membantu kapan saja</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- KONTAK -->
+    <section id="contact" class="contact">
+        <h2>Hubungi Kami</h2>
+        <div class="contact-info" id="contactInfo">
+            <!-- Kontak akan dimuat dari config.js -->
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Tentang ElectroHub</h4>
+                <ul>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Karir</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Layanan</h4>
+                <ul>
+                    <li><a href="#">Pengiriman</a></li>
+                    <li><a href="#">Pengembalian</a></li>
+                    <li><a href="#">Garansi</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Syarat & Ketentuan</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Ikuti Kami</h4>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ElectroHub. Semua hak dilindungi.</p>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="home.js"></script>
+</body>
+</html>
